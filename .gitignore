@@ -1,0 +1,16 @@
+# Byte-compiled / optimized / DLL files
+.env
+logs/
+venv/
+__pycache__/
+.idea/
+*.pdf
+*.py[cod]
+*.cmd
+*.sh
+*$py.class
+celerybeat-schedule*
+
+# Distribution / packaging
+build/
+dist/
