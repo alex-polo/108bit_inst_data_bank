@@ -6,7 +6,6 @@ __pycache__/
 .idea/
 *.pdf
 *.py[cod]
-*.cmd
 *.sh
 *$py.class
 celerybeat-schedule*

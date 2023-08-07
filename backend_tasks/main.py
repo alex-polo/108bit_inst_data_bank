@@ -29,14 +29,18 @@ def setup_periodic_tasks(sender, **kwargs):
     celery_type = os.environ.get('CELERY_TYPE')
     if celery_type == 'BEAT':
         # Синхронизация списка интернет ресурсов с базой данных
-        logger.info('Start synchronization_db resources list with database')
+
         try:
+
+
             json_resources_list = misc.resources_list_json_dump(resources_list=resources_list)
             result = synchronization_db.task_synchronization_database.apply_async(args=(json_resources_list,),
                                                                                   queue='default')
+
+
             ddd = result.get()
-            print(ddd)
-            print(result.status)
+
+
 
             # Получем список интернет ресурсов для создания запланированных задач
 
