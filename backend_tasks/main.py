@@ -32,15 +32,12 @@ def setup_periodic_tasks(sender, **kwargs):
 
         try:
 
-
             json_resources_list = misc.resources_list_json_dump(resources_list=resources_list)
-            result = synchronization_db.task_synchronization_database.apply_async(args=(json_resources_list,),
-                                                                                  queue='default')
+            synchronization = synchronization_db.task_synchronization_database.apply_async(args=(json_resources_list,),
+                                                                                           queue='default')
 
-
-            ddd = result.get()
-
-
+            if synchronization.get():
+                logger.info('Запускаем задания ')
 
             # Получем список интернет ресурсов для создания запланированных задач
 
