@@ -9,18 +9,24 @@ from celery.schedules import crontab
 
 from backend_tasks import synchronization_db
 from backend_tasks.resources_list import resources
-from etc import get_celery_config, CeleryConfig
+from database import registry_database
+from etc import get_celery_config, CeleryConfig, get_database_config, DatabaseConfig
+
 
 # Получаем базы данных брокера и бекэнда для celery из .env
 celery_config: CeleryConfig = get_celery_config()
+database_config: DatabaseConfig = get_database_config()
+
 
 # Конфигурация логгера
 logging.config.fileConfig(celery_config.logging_config)
 logger = logging.getLogger(__name__)
 
+
 # Инициализируем celery
 app = Celery(__name__, broker=celery_config.broker, backend=celery_config.backend)
 app.config_from_object('etc.celeryconfig')
+
 
 # Автопоиск задач
 app.autodiscover_tasks()
@@ -44,6 +50,8 @@ def creating_periodic_tasks() -> None:
 # При запуске celery выполняем
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
+    registry_database(database_config=database_config)
+
     celery_type = os.environ.get('CELERY_TYPE')
     if celery_type == 'BEAT':
         # Синхронизация списка интернет ресурсов с базой данных

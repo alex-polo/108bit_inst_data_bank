@@ -10,11 +10,8 @@ class CeleryConfig:
 
 @dataclass
 class DatabaseConfig:
-    """
-    DB_USER=inst_data_bank
-    DB_PASS=pandora189~
-    DB_HOST=81.90.180.71
-    DB_PORT=5432
-    DB_NAME=data_bank
-    """
-    pass
+    db_user: str
+    db_pass: str
+    db_host: str
+    db_port: str
+    db_name: str
