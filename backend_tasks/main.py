@@ -7,8 +7,8 @@ import traceback
 from celery import Celery
 from celery.schedules import crontab
 
-from backend_tasks import synchronization_db, misc
-from resources.sites import resources_list
+from backend_tasks import synchronization_db
+from backend_tasks.resources_list import resources
 from etc import get_celery_config, CeleryConfig
 
 # Получаем базы данных брокера и бекэнда для celery из .env
@@ -27,7 +27,7 @@ app.autodiscover_tasks()
 
 
 def creating_periodic_tasks() -> None:
-    for resource in resources_list:
+    for resource in resources:
         app.conf.beat_schedule = {
                     'task_bolid_data_collection': {
                         'task': 'backend_tasks.v1.bolid.bolid_data_collection',
@@ -50,7 +50,7 @@ def setup_periodic_tasks(sender, **kwargs):
         try:
             # Создаем задачу для синхронизации списка интернет ресурсов с базой данных
             logger.info('Start synchronization_db resources list with database')
-            json_resources_list = json.dumps([dataclasses.asdict(obj) for obj in resources_list])
+            json_resources_list = json.dumps([dataclasses.asdict(obj) for obj in resources])
             synchronization = synchronization_db.task_synchronization_database.apply_async(args=(json_resources_list,),
                                                                                            queue='default')
             # Ждем выполнения задачи для синхронизации

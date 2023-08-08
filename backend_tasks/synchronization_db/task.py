@@ -4,7 +4,7 @@ from typing import List
 
 from celery import shared_task
 
-from resources.tools.classes import ResourcesVendor
+from backend_tasks.misc.classes import ResourcesVendor
 
 logger = logging.getLogger('backend')
 

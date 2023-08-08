@@ -1,10 +1,8 @@
 from typing import List
 
-import backend_tasks
-from backend_tasks import v1 as tasks_v1
-from resources.tools.classes import ResourcesVendor
+from backend_tasks.misc.classes import ResourcesVendor
 
-resources_list: List[ResourcesVendor] = [
+resources: List[ResourcesVendor] = [
     ResourcesVendor(
         system_name='bolid',
         vendor_name='bolid',
