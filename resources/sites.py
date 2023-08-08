@@ -1,7 +1,8 @@
 from typing import List
 
-from backend_tasks.resources.parsers import bolid
-from backend_tasks.resources.tools.classes import ResourcesVendor
+import backend_tasks
+from backend_tasks import v1 as tasks_v1
+from resources.tools.classes import ResourcesVendor
 
 resources_list: List[ResourcesVendor] = [
     ResourcesVendor(
@@ -10,7 +11,8 @@ resources_list: List[ResourcesVendor] = [
         url='https://bolid.ru/',
         vendor_tag='#Bolid',
         field_tags=['#Системы_автоматики', '#Системы_безопасности'],
-        parser_function=bolid.parse_resource,
+        task='backend_tasks.bolid_data_collection',
+        time_execute='1',
         is_enabled=True
     )
 ]

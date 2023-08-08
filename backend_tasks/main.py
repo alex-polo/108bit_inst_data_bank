@@ -1,11 +1,14 @@
+import dataclasses
+import json
 import logging.config
 import os
 import traceback
 
 from celery import Celery
+from celery.schedules import crontab
 
 from backend_tasks import synchronization_db, misc
-from backend_tasks.resources.sites import resources_list
+from resources.sites import resources_list
 from etc import get_celery_config, CeleryConfig
 
 # Получаем базы данных брокера и бекэнда для celery из .env
@@ -23,37 +26,41 @@ app.config_from_object('etc.celeryconfig')
 app.autodiscover_tasks()
 
 
+def creating_periodic_tasks() -> None:
+    for resource in resources_list:
+        app.conf.beat_schedule = {
+                    'task_bolid_data_collection': {
+                        'task': 'backend_tasks.v1.bolid.bolid_data_collection',
+                        'schedule': crontab(minute=f'*/{resource.time_execute}'),
+                        'options': {
+                            'routing_key': 'task_data_collection',
+                            'priority': 10
+                        },
+                        # 'args': (16, 16),
+                    },
+                }
+
+
 # При запуске celery выполняем
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
     celery_type = os.environ.get('CELERY_TYPE')
     if celery_type == 'BEAT':
         # Синхронизация списка интернет ресурсов с базой данных
-
         try:
-
-            json_resources_list = misc.resources_list_json_dump(resources_list=resources_list)
+            # Создаем задачу для синхронизации списка интернет ресурсов с базой данных
+            logger.info('Start synchronization_db resources list with database')
+            json_resources_list = json.dumps([dataclasses.asdict(obj) for obj in resources_list])
             synchronization = synchronization_db.task_synchronization_database.apply_async(args=(json_resources_list,),
                                                                                            queue='default')
-
+            # Ждем выполнения задачи для синхронизации
+            logger.info('Waiting for a task "synchronization_db" to complete')
             if synchronization.get():
-                logger.info('Запускаем задания ')
-
-            # Получем список интернет ресурсов для создания запланированных задач
-
-            # Если все впорядке добавляем назначенные задания
-            # app.conf.beat_schedule = {
-            #     'task_bolid_data_collection': {
-            #         'task': 'backend_tasks.v1.tasks.bolid_data_collection',
-            #         'schedule': crontab(),
-            #         # 'options': {'queue': 'data_collection'}
-            #         # 'options': {
-            #         #     'routing_key': 'task_data_collection',
-            #         #     'priority': 10
-            #         # }
-            #         # 'args': (16, 16),
-            #     },
-            # }
+                logger.info('Creating scheduled Tasks')
+                creating_periodic_tasks()
+                logger.info('Scheduled tasks created')
+            else:
+                logger.error('Failed to create scheduled tasks')
 
             logger.info(f'Celery {celery_type.title()} configuration completed')
         except Exception as error:

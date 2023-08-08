@@ -9,5 +9,6 @@ class ResourcesVendor:
     url: str
     vendor_tag: str
     field_tags: List[str]
-    parser_function: Optional[Any]
+    task: str
+    time_execute: str
     is_enabled: bool

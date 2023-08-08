@@ -1,1 +1,2 @@
-celery_logging_config = 'etc\\celery_logging.ini'
+etc_directory = 'etc'
+celery_logging_config = 'celery_logging.ini'
