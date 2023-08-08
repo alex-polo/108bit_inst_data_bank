@@ -1,5 +1,11 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Any, Optional
+
+
+@dataclass
+class DownloadedContent:
+    is_success: bool
+    content: Optional[Any]
 
 
 @dataclass
