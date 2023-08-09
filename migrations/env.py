@@ -6,6 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 import database
+from database.main import Base
 from etc import DatabaseConfig, get_database_config
 
 # this is the Alembic Config object, which provides
@@ -13,6 +14,7 @@ from etc import DatabaseConfig, get_database_config
 config = context.config
 
 database_config: DatabaseConfig = get_database_config()
+
 section = config.config_ini_section
 config.set_section_option(section, "DB_USER", database_config.db_user)
 config.set_section_option(section, "DB_PASS", database_config.db_pass)

@@ -1,18 +1,16 @@
 from typing import Optional, AsyncGenerator
 
-from sqlalchemy import MetaData
 from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, AsyncSession, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
 from etc.classes import DatabaseConfig
-
-metadata = MetaData()
 
 
 class Base(DeclarativeBase):
     pass
 
 
+metadata = Base.metadata
 _engine: AsyncEngine = Optional[None]
 _async_session_maker: async_sessionmaker = Optional[None]
 
