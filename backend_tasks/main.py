@@ -3,11 +3,14 @@ import json
 import logging.config
 import os
 import traceback
+from typing import List
 
 from celery import Celery
 from celery.schedules import crontab
 
 from backend_tasks import synchronization_db
+from backend_tasks.misc import serialize_resource, deserialize_resource
+from backend_tasks.misc.classes import ResourcesVendor
 from backend_tasks.resources_list import resources
 from database import registry_database
 from etc import get_celery_config, CeleryConfig, get_database_config, DatabaseConfig
@@ -58,9 +61,14 @@ def setup_periodic_tasks(sender, **kwargs):
         try:
             # Создаем задачу для синхронизации списка интернет ресурсов с базой данных
             logger.info('Start synchronization_db resources list with database')
-            json_resources_list = json.dumps([dataclasses.asdict(obj) for obj in resources])
+            json_resources_list = json.dumps([dataclasses.asdict(obj) for obj in resources], ensure_ascii=False)
+
             synchronization = synchronization_db.task_synchronization_database.apply_async(args=(json_resources_list,),
                                                                                            queue='default')
+
+            # synchronization = synchronization_db.task_synchronization_database.apply_async(args=(resources,),
+            #                                                                                queue='default')
+
             # Ждем выполнения задачи для синхронизации
             logger.info('Waiting for a task "synchronization_db" to complete')
             if synchronization.get():

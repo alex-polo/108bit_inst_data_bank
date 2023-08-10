@@ -19,7 +19,7 @@ async def main(url: str, timeout: int = 60, headers: dict = None) -> None:
         main_menu = BeautifulSoup(response.content, 'html.parser').find_all('ul',
                                                                             class_='gead_menu')
 
-        print(main_menu)
+        # print(main_menu)
 
 
 # content_page = BeautifulSoup(page_body, 'html.parser').find_all('div', class_=items_class_name)
