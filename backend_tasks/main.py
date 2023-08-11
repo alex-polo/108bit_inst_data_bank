@@ -3,14 +3,11 @@ import json
 import logging.config
 import os
 import traceback
-from typing import List
 
 from celery import Celery
 from celery.schedules import crontab
 
 from backend_tasks import synchronization_db
-from backend_tasks.misc import serialize_resource, deserialize_resource
-from backend_tasks.misc.classes import ResourcesVendor
 from backend_tasks.resources_list import resources
 from database import registry_database
 from etc import get_celery_config, CeleryConfig, get_database_config, DatabaseConfig

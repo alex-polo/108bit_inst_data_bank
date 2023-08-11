@@ -15,6 +15,10 @@ _engine: AsyncEngine = Optional[None]
 _async_session_maker: async_sessionmaker = Optional[None]
 
 
+def get_session_maker():
+    return _async_session_maker
+
+
 async def get_api_async_session() -> AsyncGenerator[AsyncSession, None]:
     async with _async_session_maker() as session:
         yield session
