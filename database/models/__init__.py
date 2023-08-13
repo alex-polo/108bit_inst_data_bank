@@ -1,2 +1,2 @@
 from database.models.sites import Sites
-from database.models.sites_tags import SitesTags
+from database.models.field_tags import SitesTags

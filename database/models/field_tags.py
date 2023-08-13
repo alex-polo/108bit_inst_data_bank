@@ -5,8 +5,8 @@ from sqlalchemy import Integer, Column, String, TIMESTAMP, ForeignKey
 from database.main import Base
 
 
-class SitesTags(Base):
-    __tablename__ = 'sites_tags'
+class FieldTags(Base):
+    __tablename__ = 'field_tags'
 
     id = Column(Integer, primary_key=True)
     site_id = Column(Integer, ForeignKey('sites.id'))
