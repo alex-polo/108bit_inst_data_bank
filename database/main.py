@@ -1,12 +1,15 @@
 from typing import Optional, AsyncGenerator
 
-from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, AsyncSession, create_async_engine
+from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, AsyncSession, create_async_engine, AsyncAttrs
 from sqlalchemy.orm import DeclarativeBase
 
 from etc.classes import DatabaseConfig
 
 
-class Base(DeclarativeBase):
+# class Base(DeclarativeBase):
+#     pass
+
+class Base(AsyncAttrs, DeclarativeBase):
     pass
 
 
@@ -15,18 +18,9 @@ _engine: AsyncEngine = Optional[None]
 _async_session_maker: async_sessionmaker = Optional[None]
 
 
-def get_session_maker():
-    return _async_session_maker
-
-
-async def get_api_async_session() -> AsyncGenerator[AsyncSession, None]:
+async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     async with _async_session_maker() as session:
         yield session
-
-
-async def get_async_session() -> AsyncSession:
-    async with _async_session_maker() as session:
-        return session
 
 
 def registry_database(database_config: DatabaseConfig) -> None:

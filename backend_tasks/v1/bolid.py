@@ -6,6 +6,7 @@ import requests
 from celery import shared_task
 from bs4 import BeautifulSoup
 
+import database
 from backend_tasks.misc import download
 from backend_tasks.misc.classes import DownloadedContent
 
@@ -18,6 +19,20 @@ async def main(url: str, timeout: int = 60, headers: dict = None) -> None:
     if response.is_success:
         main_menu = BeautifulSoup(response.content, 'html.parser').find_all('ul',
                                                                             class_='gead_menu')
+
+        async for session in database.get_async_session():
+            async with session.begin():
+                try:
+                    # Работа с асинхронной сессией и объектами
+                    # result = session.execute()
+                    await session.commit()
+                except Exception as error:
+                    await session.rollback()
+                    logger.error(error)
+                    logger.error(traceback.format_exc(limit=None, chain=True))
+                finally:
+                    await session.close()
+                    logger.warning('Close DB session')
 
         # print(main_menu)
 

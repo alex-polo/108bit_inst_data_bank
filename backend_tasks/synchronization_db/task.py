@@ -2,10 +2,11 @@ import asyncio
 import json
 import logging
 import traceback
-from typing import List
+from typing import List, AsyncGenerator
 
 from celery import shared_task
 from sqlalchemy import select, ChunkedIteratorResult
+from sqlalchemy.ext.asyncio import AsyncSession
 
 import database.main
 from backend_tasks.misc.classes import ResourcesVendor
@@ -15,11 +16,18 @@ logger = logging.getLogger('backend')
 
 
 async def _synchronization(resources: List[ResourcesVendor]):
-    async with await database.get_async_session() as session:
+    async for session in database.get_async_session():
         async with session.begin():
-            result = await session.execute(select(Sites))
-            print(type(result))
-            print(result)
+            try:
+                # Работа с асинхронной сессией и объектами
+                # result = session.execute()
+                await session.commit()
+            except Exception as error:
+                await session.rollback()
+                logger.error(error)
+                logger.error(traceback.format_exc(limit=None, chain=True))
+            finally:
+                await session.close()
 
 
 @shared_task()
