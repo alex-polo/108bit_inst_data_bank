@@ -8,7 +8,7 @@ import database
 from database import registry_database
 from etc import DatabaseConfig, get_database_config
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -22,8 +22,9 @@ def registry_routers() -> None:
     pass
 
 
-def run():
+def run(host: str = '0.0.0.0', port: int = 8000) -> None:
     db_config: DatabaseConfig = get_database_config()
-    registry_database(database_config=db_config)
+    version = registry_database(database_config=db_config)
+    logger.info(f'Registry database engine, sqlalchemy version: {version}')
 
-    uvicorn.run(app, host="0.0.0.0", port=8000, log_config=None)
+    uvicorn.run(app, host=host, port=port, log_config=None)

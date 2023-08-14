@@ -1,5 +1,6 @@
 from typing import Optional, AsyncGenerator
 
+import sqlalchemy
 from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, AsyncSession, create_async_engine, AsyncAttrs
 from sqlalchemy.orm import DeclarativeBase
 
@@ -23,7 +24,7 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
-def registry_database(database_config: DatabaseConfig) -> None:
+def registry_database(database_config: DatabaseConfig) -> str:
     global _engine, _async_session_maker
 
     database_url = f'postgresql+asyncpg://' \
@@ -35,3 +36,5 @@ def registry_database(database_config: DatabaseConfig) -> None:
 
     _engine = create_async_engine(database_url)
     _async_session_maker = async_sessionmaker(_engine, class_=AsyncSession, expire_on_commit=False)
+
+    return sqlalchemy.__version__
