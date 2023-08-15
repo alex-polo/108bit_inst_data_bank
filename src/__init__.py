@@ -1,1 +1,2 @@
-from src.server import run
+from .server import run
+

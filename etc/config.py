@@ -5,9 +5,6 @@ from environs import Env
 from etc import CeleryConfig, DatabaseConfig
 from etc.settings import celery_logging_config, etc_directory
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-
 
 def get_celery_config() -> CeleryConfig:
     env = Env()

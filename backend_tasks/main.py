@@ -13,7 +13,7 @@ from database import registry_database
 from etc import get_celery_config, CeleryConfig, get_database_config, DatabaseConfig
 
 
-# Получаем базы данных брокера и бекэнда для celery из .env
+# Получаем базы данных брокера и бекэнда для celery из ..env
 celery_config: CeleryConfig = get_celery_config()
 database_config: DatabaseConfig = get_database_config()
 

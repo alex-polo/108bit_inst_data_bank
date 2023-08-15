@@ -7,9 +7,6 @@ from sqlalchemy.orm import DeclarativeBase
 from etc.classes import DatabaseConfig
 
 
-# class Base(DeclarativeBase):
-#     pass
-
 class Base(AsyncAttrs, DeclarativeBase):
     pass
 
