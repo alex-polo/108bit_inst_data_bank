@@ -26,5 +26,4 @@ def run(host: str = '0.0.0.0', port: int = 8000) -> None:
     db_config: DatabaseConfig = get_database_config()
     version = registry_database(database_config=db_config)
     logger.info(f'Registry database engine, sqlalchemy version: {version}')
-
     uvicorn.run(app, host=host, port=port, log_config=None)
