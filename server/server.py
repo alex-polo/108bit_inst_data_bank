@@ -4,8 +4,7 @@ import uvicorn
 from fastapi import FastAPI, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from server import database
-from server.database import registry_database
+import database
 from server.etc import DatabaseConfig, get_database_config
 
 logger = logging.getLogger(__name__)
@@ -24,6 +23,6 @@ def registry_routers() -> None:
 
 def run(host: str = '0.0.0.0', port: int = 8000) -> None:
     db_config: DatabaseConfig = get_database_config()
-    version = registry_database(database_config=db_config)
+    version = database.registry_database(database_config=db_config)
     logger.info(f'Registry database engine, sqlalchemy version: {version}')
     uvicorn.run(app, host=host, port=port, log_config=None)
