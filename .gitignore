@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
-.env
-.env-non-dev
+server/.env
+server/.env-non-dev
 logs/
 venv/
 __pycache__/
