@@ -1,11 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import logo from './logo.svg';
+import NaviBar from './Components/NaviBar';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import AuthForm from './Components/AuthForm';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -18,9 +22,16 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+
+      <NaviBar />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/auth" element={ <AuthForm /> } />
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
 export default App;
