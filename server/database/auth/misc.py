@@ -7,11 +7,11 @@ from server.database import get_async_session
 from fastapi_users.authentication import JWTStrategy, AuthenticationBackend
 from fastapi_users.authentication import CookieTransport
 
-from server.database.auth.model import User
+# from server.database.auth.model import User
 
 
-async def get_user_db(session: AsyncSession = Depends(get_async_session)):
-    yield SQLAlchemyUserDatabase(session, User)
+# async def get_user_db(session: AsyncSession = Depends(get_async_session)):
+#     yield SQLAlchemyUserDatabase(session, User)
 
 
 cookie_transport = CookieTransport(cookie_max_age=3600)

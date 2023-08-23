@@ -18,7 +18,7 @@ function AuthForm() {
                     <Form.Control type="text" placeholder="Логин" />
                 </Form.Group>
                 <Form.Group as={Row} controlId="formGridPassword">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>Пароль</Form.Label>
                     <Form.Control type="password" placeholder="Пароль" />
                 </Form.Group>
                 <Button variant="primary" type="submit">

@@ -3,6 +3,7 @@ import logging
 import uvicorn
 from fastapi import FastAPI, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.responses import JSONResponse
 
 import database
 from server.etc import DatabaseConfig, get_database_config
@@ -19,6 +20,11 @@ async def startup(session: AsyncSession = Depends(database.get_async_session)) -
 
 def registry_routers() -> None:
     pass
+
+
+@app.get('/')
+def home():
+    return JSONResponse({'version': 0.01})
 
 
 def run(host: str = '0.0.0.0', port: int = 8000) -> None:
