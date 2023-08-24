@@ -19,21 +19,3 @@ body {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
-
-.auth-form{
-  width: 100%;
-    max-width: 400px;
-    padding: 15px;
-    margin: 0 auto;
-    background-color: #fff;
-    /* -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center; */
-}
-
-.auth-form__img {
-  /* height: 4rem; */
-  width: 3.8em;
-  height: 100%;
-}

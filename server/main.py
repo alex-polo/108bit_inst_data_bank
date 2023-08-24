@@ -24,7 +24,7 @@ def registry_routers() -> None:
 
 @app.get('/')
 def home():
-    return JSONResponse({'version': 0.01})
+    return JSONResponse({'app': 'Data Bank', 'version': 0.01})
 
 
 def run(host: str = '0.0.0.0', port: int = 8000) -> None:

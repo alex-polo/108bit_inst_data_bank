@@ -4,7 +4,11 @@ import './App.css';
 import logo from './logo.svg';
 import NaviBar from './Components/NaviBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import AuthForm from './Components/AuthForm';
+import AuthForm from './Components/auth/AuthForm';
+import { QueryClient } from 'react-query';
+
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
