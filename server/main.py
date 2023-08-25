@@ -1,7 +1,7 @@
 import logging
 
 import uvicorn
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.responses import JSONResponse
 
@@ -24,7 +24,14 @@ def registry_routers() -> None:
 
 @app.get('/')
 def home():
-    return JSONResponse({'app': 'Data Bank', 'version': 0.01})
+    try:
+        return JSONResponse(status_code=200, content={'app': 'Data Bank', 'version': 0.01, 'data': None})
+    except Exception as error:
+        raise HTTPException(status_code=500, detail={
+                'app': 'Data Bank',
+                'version': 0.01,
+                'data': error
+            })
 
 
 def run(host: str = '0.0.0.0', port: int = 8000) -> None:
