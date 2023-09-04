@@ -1,28 +1,14 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import logo from './logo.svg';
-import NaviBar from './Components/NaviBar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import AuthForm from './Components/auth/AuthForm';
-import { QueryClient } from 'react-query';
-import { useQuery } from 'react-query';
-import axios from 'axios';
-
-
-const queryClient = new QueryClient();
-
-
-async function fetchData(){
-  const response = await 
-}
+import NaviBar from './components/NaviBar';
+import { Routes, Route } from 'react-router-dom';
+import AuthForm from './components/auth/AuthForm';
+import NotFoundPage from './components/not_found/not_found_page';
 
 function App() {
   return (
     <div className="App">
-      
-
-
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -39,13 +25,13 @@ function App() {
       </header> */}
 
       <NaviBar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/auth" element={ <AuthForm /> } />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/auth" element={<AuthForm />} />
+        <Route path="*" element={<AuthForm />} />
+        {/* <Route path="*" element={<NotFoundPage />} /> */}
+      </Routes>
     </div>
-  )
+  );
 }
 
 export default App;
