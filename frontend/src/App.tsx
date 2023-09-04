@@ -1,14 +1,15 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import NaviBar from './components/NaviBar';
+import NaviBar from './components/navibar/NaviBar';
 import { Routes, Route } from 'react-router-dom';
 import AuthForm from './components/auth/AuthForm';
 import NotFoundPage from './components/not_found/not_found_page';
+// import NotFoundPage from './components/not_found/not_found_page';
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="wrapper">
+      <NaviBar />
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -24,9 +25,9 @@ function App() {
         </a>
       </header> */}
 
-      <NaviBar />
+      
       <Routes>
-        <Route path="/auth" element={<AuthForm />} />
+        {/* <Route path="/auth" element={<AuthForm />} /> */}
         <Route path="*" element={<AuthForm />} />
         {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>

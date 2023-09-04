@@ -20,27 +20,26 @@ function AuthForm(): ReactElement {
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <Card.Img variant="top" src={auth_form__img} />
                 <Card.Body>
-                  {/* <Card.Title>Вход</Card.Title> */}
-                  <div className="p-4 text-center w-75 m-auto">
-                    <h4>Вход</h4>
-                    <p className="text-muted mb-4">Введите логин и пароль для доступа к панели</p>
-                  </div>
-
-                  <Form className="p-4 mb-3">
+                  <div className="text-center w-75 m-auto">
+                    <div className='p-2'>
+                      <h4>Вход</h4>
+                      <p className="text-muted">Введите логин и пароль для доступа к панели</p>
+                    </div>
+                    
+                    <Form className="mb-3">
                     <Form.Group as={Row} controlId="formGridEmail">
                       <Form.Label>Логин</Form.Label>
-                      <Form.Control type="text" placeholder="Логин" />
+                      <Form.Control className='non-rad' type="text" placeholder="Логин" />
                     </Form.Group>
-                    <Form.Group as={Row} controlId="formGridPassword">
+                    <Form.Group className='mt-2' as={Row} controlId="formGridPassword">
                       <Form.Label>Пароль</Form.Label>
-                      <Form.Control type="password" placeholder="Пароль" />
+                      <Form.Control className='non-rad' type="password" placeholder="Пароль" />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                      Submit
+                    <Button className='non-rad mt-4' variant="outline-success" type="submit">
+                      Войти
                     </Button>
                   </Form>
-                  {/* <Card.Text></Card.Text> */}
-                  {/* <Button variant="primary">Go somewhere</Button> */}
+                  </div>
                 </Card.Body>
               </Card>
             </div>
