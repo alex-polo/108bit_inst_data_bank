@@ -15,13 +15,21 @@
       justify-content: center; 
   } */
   
-  .auth-form__img {
+.auth_form {
+  border-radius: 0px;
+}
+
+.auth_form input {
+  border-radius: 0px;
+}
+
+.auth_form button {
+  border-radius: 0px;
+}
+
+.auth-form__img {
     /* height: 4rem; */
     width: 3.8em;
     height: 100%;
-  }
-
-  .non-rad {
-    border-radius: 0px;
-  }
+}
 
