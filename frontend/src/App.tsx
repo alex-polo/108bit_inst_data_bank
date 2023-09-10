@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import AuthForm from './components/auth/AuthForm';

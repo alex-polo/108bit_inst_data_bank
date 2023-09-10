@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import { ReactElement } from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Image from 'react-bootstrap/Image';
+// import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import auth_form__img from '../../assets/auth_form__img.jpg';
 import styles from './AuthForm.module.css';
