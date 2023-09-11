@@ -1,6 +1,6 @@
 from typing import List
 
-from server.backend_tasks.misc.classes import ResourcesVendor
+from main.backend_tasks.misc.classes import ResourcesVendor
 
 resources: List[ResourcesVendor] = [
     ResourcesVendor(

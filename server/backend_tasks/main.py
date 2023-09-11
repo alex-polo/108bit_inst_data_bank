@@ -7,10 +7,10 @@ import traceback
 from celery import Celery
 from celery.schedules import crontab
 
-from server.backend_tasks import synchronization_db
-from server.backend_tasks.resources_list import resources
-from server.database import registry_database
-from server.etc import get_celery_config, CeleryConfig, get_database_config, DatabaseConfig
+from main.backend_tasks import synchronization_db
+from main.backend_tasks.resources_list import resources
+from main.database import registry_database
+from main.etc import get_celery_config, CeleryConfig, get_database_config, DatabaseConfig
 
 
 # Получаем базы данных брокера и бекэнда для celery из ..env

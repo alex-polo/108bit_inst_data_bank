@@ -1,9 +1,14 @@
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
-from sqlalchemy import Integer, String, Boolean, TIMESTAMP, func
+from sqlalchemy import Integer, TIMESTAMP, func
 from sqlalchemy.orm import mapped_column, Mapped
 
-from server.database import Base
+from database.models.base import Base
 
+
+class User(SQLAlchemyBaseUserTable[int], Base):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    update_at: Mapped[TIMESTAMP] = mapped_column(TIMESTAMP, default=func.now, onupdate=func.now, nullable=False)
+    create_at: Mapped[TIMESTAMP] = mapped_column(TIMESTAMP, default=func.now, nullable=False)
 
 # class User(SQLAlchemyBaseUserTable[int], Base):
 #     id: Mapped[int] = mapped_column(Integer, primary_key=True)

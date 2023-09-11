@@ -2,8 +2,8 @@ import os
 
 from environs import Env
 
-from server.etc import CeleryConfig, DatabaseConfig
-from server.etc.settings import celery_logging_config, etc_directory
+from etc import CeleryConfig, DatabaseConfig
+from etc.settings import etc_directory, celery_logging_config
 
 
 def get_celery_config() -> CeleryConfig:

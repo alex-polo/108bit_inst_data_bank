@@ -5,9 +5,9 @@ import traceback
 from celery import shared_task
 from bs4 import BeautifulSoup
 
-from server import database
-from server.backend_tasks.misc import download
-from server.backend_tasks.misc.classes import DownloadedContent
+from main import database
+from main.backend_tasks.misc import download
+from main.backend_tasks.misc.classes import DownloadedContent
 
 logger = logging.getLogger('backend')
 

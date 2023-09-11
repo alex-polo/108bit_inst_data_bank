@@ -1,7 +1,7 @@
 import logging
 import traceback
 
-from server import src
+from main import src
 
 logger = logging.getLogger(__name__)
 

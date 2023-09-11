@@ -3,12 +3,14 @@ import time
 
 import uvicorn
 from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 
-import database
-from server.etc import DatabaseConfig, get_database_config
+from database import get_async_session, registry_database
+from database.models import Sites
+from etc import DatabaseConfig, get_database_config
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +31,7 @@ app.add_middleware(
 
 
 @app.on_event("startup")
-async def startup(session: AsyncSession = Depends(database.get_async_session)) -> None:
+async def startup(session: AsyncSession = Depends(get_async_session)) -> None:
     pass
 
 
@@ -38,9 +40,9 @@ def registry_routers() -> None:
 
 
 @app.get('/')
-def home():
+async def home(session: AsyncSession = Depends(get_async_session)):
     try:
-        time.sleep(1)
+        # res = await session.execute(select(Sites))
         return JSONResponse(status_code=200, content={'app': 'Data Bank', 'version': '0.01a', 'data': 'any data'})
     except Exception as error:
         raise HTTPException(status_code=500, detail={
@@ -51,7 +53,7 @@ def home():
 
 
 def run(host: str = '0.0.0.0', port: int = 8000) -> None:
-    db_config: DatabaseConfig = get_database_config()
-    version = database.registry_database(database_config=db_config)
-    logger.info(f'Registry database engine, sqlalchemy version: {version}')
+    # db_config: DatabaseConfig = get_database_config()
+    # version = registry_database(database_config=db_config)
+    # logger.info(f'Registry database engine, sqlalchemy version: {version}')
     uvicorn.run(app, host=host, port=port, log_config=None)

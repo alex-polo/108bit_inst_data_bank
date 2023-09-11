@@ -2,7 +2,7 @@ import logging
 
 import aiohttp
 
-from server.backend_tasks.misc.classes import DownloadedContent
+from main.backend_tasks.misc.classes import DownloadedContent
 
 logger = logging.getLogger('backend')
 
